@@ -1,0 +1,1087 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>إدارة شؤون عائلة النجار</title>
+  <style>
+    :root{
+      --navy:#0E3557;
+      --blue:#1E6FB8;
+      --green:#1E7A4C;
+      --red:#C0392B;
+      --gold:#C9A24B;
+      --purple:#8E44AD;
+      --teal:#16A085;
+      --orange:#E67E22;
+      --slate:#2C3E50;
+      --paper:#F4F7FA;
+      --card:#FFFFFF;
+      --ink:#17212B;
+      --muted:#64748B;
+      --line:#D8E0E8;
+      --soft:#EEF4F8;
+      --radius:8px;
+      --font:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
+      --shadow:0 10px 25px rgba(14,53,87,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;overflow-x:hidden}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit}
+    :focus-visible{outline:3px solid rgba(30,111,184,.35);outline-offset:2px}
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+    }
+    .hidden{display:none!important}
+    .login-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#f7fbff,#edf4f1)}
+    .login-wrap{width:min(1020px,100%);display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:stretch}
+    .brand-panel{background:var(--navy);color:#fff;border-radius:var(--radius);padding:34px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);min-height:420px}
+    .brand-panel h1{font-size:clamp(30px,5vw,52px);line-height:1.15;margin:0 0 14px}
+    .brand-panel p{font-size:18px;margin:0;color:#DDEAF3;max-width:620px}
+    .brand-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+    .brand-stat{border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);padding:14px;background:rgba(255,255,255,.07)}
+    .brand-stat strong{display:block;font-size:24px}
+    .login-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .login-card h2{margin:0 0 8px;font-size:25px}
+    .muted{color:var(--muted)}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+    label{font-weight:700}
+    input,select,textarea{width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;background:#fff;color:var(--ink)}
+    textarea{resize:vertical}
+    input[type="tel"],.ltr{direction:ltr;text-align:right}
+    .error{color:var(--red);font-weight:700;min-height:24px}
+    .layout{min-height:100vh;display:grid;grid-template-columns:286px minmax(0,1fr)}
+    .sidebar{background:var(--navy);color:#fff;position:sticky;top:0;height:100vh;overflow:auto;padding:18px 14px;z-index:20}
+    .side-title{display:flex;align-items:center;gap:10px;padding:8px 8px 18px;border-bottom:1px solid rgba(255,255,255,.16);margin-bottom:14px}
+    .side-logo{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--navy);font-weight:900}
+    .side-title strong{display:block;font-size:18px}
+    .side-title span{display:block;color:#BFD4E6;font-size:13px}
+    .nav-group{margin:12px 0}
+    .nav-group-title{font-size:12px;color:#BFD4E6;padding:8px 10px}
+    .nav-btn{width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#F3F7FA;text-align:right;padding:10px;border-radius:var(--radius)}
+    .nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.12)}
+    .nav-ico{width:24px;text-align:center}
+    .main{min-width:0;overflow-x:hidden}
+    .topbar{height:66px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:12px;padding:0 18px}
+    .topbar-title{min-width:160px}
+    .topbar-title strong{display:block}
+    .topbar-title span{display:block;font-size:13px;color:var(--muted)}
+    .search{position:relative;flex:1;max-width:520px}
+    .search input{padding-inline-start:40px}
+    .search span{position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+    .top-actions{margin-inline-start:auto;display:flex;align-items:center;gap:8px}
+    .content{padding:22px;max-width:1480px;margin:0 auto}
+    .view-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+    .view-head h2{margin:0;font-size:26px}
+    .view-head p{margin:4px 0 0;color:var(--muted)}
+    .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+    .btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);padding:9px 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;text-decoration:none;font-weight:700}
+    .btn:hover{border-color:#b9c7d4}
+    .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+    .btn.green{background:var(--green);border-color:var(--green);color:#fff}
+    .btn.red{background:var(--red);border-color:var(--red);color:#fff}
+    .btn.ghost{background:transparent}
+    .btn.icon{width:40px;padding:0}
+    .btn[disabled]{opacity:.55;cursor:not-allowed}
+    .grid{display:grid;gap:14px}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .panel,.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .panel{padding:16px}
+    .panel h3{margin:0 0 12px;font-size:19px}
+    .kpi{padding:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .kpi strong{display:block;font-size:28px;line-height:1}
+    .kpi span{display:block;color:var(--muted);margin-top:8px}
+    .kpi .mark{width:46px;height:46px;border-radius:var(--radius);display:grid;place-items:center;background:var(--soft);color:var(--blue);font-size:22px}
+    .tbl-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+    table{width:100%;border-collapse:collapse;min-width:680px}
+    th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+    th{background:#F8FAFC;color:#334155;font-size:14px}
+    tr:last-child td{border-bottom:0}
+    .row-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 9px;font-size:13px;font-weight:800;white-space:nowrap}
+    .pill.blue{background:#E8F1FA;color:var(--blue)}
+    .pill.green{background:#EAF6F0;color:var(--green)}
+    .pill.red{background:#FCEDEA;color:var(--red)}
+    .pill.gray{background:#EDF1F5;color:#59677A}
+    .pill.gold{background:#FBF5E4;color:#8A6A1D}
+    .bar{height:10px;background:#E8EEF4;border-radius:999px;overflow:hidden}
+    .bar span{display:block;height:100%;background:var(--green);width:0}
+    .card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .category-card{border-top:5px solid var(--blue)}
+    .empty{border:1px dashed #B8C5D1;border-radius:var(--radius);padding:28px;text-align:center;color:var(--muted);background:#fff}
+    .empty .empty-icon{font-size:36px;display:block;margin-bottom:8px}
+    .filters{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:12px}
+    .seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+    .seg button{border:0;background:transparent;padding:9px 12px}
+    .seg button.active{background:var(--blue);color:#fff}
+    .tree{display:grid;gap:12px}
+    .tree-node{border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:#fff}
+    .tree-children{margin-top:10px;margin-inline-start:18px;border-inline-start:3px solid var(--line);padding-inline-start:12px;display:grid;gap:8px}
+    .deceased{opacity:.62;filter:grayscale(.2)}
+    .chart{min-height:230px;display:flex;align-items:center;justify-content:center}
+    .chart svg{width:100%;height:auto;max-height:260px}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .legend span{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+    .swatch{width:12px;height:12px;border-radius:3px;display:inline-block}
+    .timeline{display:grid;gap:10px}
+    .timeline-item{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:start}
+    .timeline-ico{width:44px;height:44px;border-radius:var(--radius);display:grid;place-items:center;background:var(--soft);color:var(--blue);font-size:20px}
+    .notif-wrap{position:relative}
+    .badge{position:absolute;top:-6px;left:-6px;background:var(--red);color:#fff;border-radius:999px;font-size:12px;min-width:20px;height:20px;display:grid;place-items:center;padding:0 5px}
+    .notif-panel{position:absolute;top:52px;left:12px;width:min(380px,calc(100vw - 24px));background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);z-index:40;padding:12px}
+    .notif-list{display:grid;gap:8px;max-height:360px;overflow:auto}
+    .notif-item{border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+    .notif-item.unread{border-color:rgba(30,111,184,.5);background:#F2F8FD}
+    .modal-root{position:fixed;inset:0;display:none;z-index:60}
+    .modal-root.open{display:block}
+    .modal-backdrop{position:absolute;inset:0;background:rgba(12,24,36,.45)}
+    .modal{position:relative;background:#fff;width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 36px);overflow:auto;margin:18px auto;border-radius:var(--radius);box-shadow:0 25px 60px rgba(0,0,0,.18)}
+    .modal-head,.modal-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+    .modal-foot{border-top:1px solid var(--line);border-bottom:0;justify-content:flex-start}
+    .modal-body{padding:16px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .form-grid .full{grid-column:1/-1}
+    .toast-root{position:fixed;bottom:16px;left:16px;z-index:80;display:grid;gap:8px}
+    .toast{border-radius:var(--radius);padding:11px 13px;color:#fff;box-shadow:var(--shadow);min-width:240px}
+    .toast.ok{background:var(--green)}
+    .toast.err{background:var(--red)}
+    .toast.info{background:var(--blue)}
+    .menu-toggle{display:none}
+    .print-only{display:none}
+    @media (max-width:1120px){
+      .grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .login-wrap{grid-template-columns:1fr}
+      .brand-panel{min-height:auto}
+    }
+    @media (max-width:960px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{position:fixed;inset-block:0;inset-inline-start:0;width:286px;transform:translateX(105%);transition:.2s transform}
+      body.sidebar-open .sidebar{transform:translateX(0)}
+      .menu-toggle{display:inline-flex}
+      .topbar{height:auto;min-height:66px;flex-wrap:wrap;padding:10px 12px}
+      .search{order:5;flex-basis:100%;max-width:none}
+      .content{padding:14px}
+      .filters{grid-template-columns:1fr}
+    }
+    @media (max-width:680px){
+      .grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr}
+      .view-head{display:block}
+      .toolbar{margin-top:10px}
+      .brand-stats{grid-template-columns:1fr}
+      .form-grid{grid-template-columns:1fr}
+      .modal{margin:8px auto;max-height:calc(100vh - 16px)}
+    }
+    @media print{
+      body{background:#fff}
+      .sidebar,.topbar,.toolbar,.btn,.modal-root,.toast-root,.notif-panel{display:none!important}
+      .layout{display:block}
+      .content{padding:0;max-width:none}
+      .panel,.kpi{box-shadow:none}
+      .print-only{display:block}
+    }
+  </style>
+</head>
+<body>
+  <section id="loginScreen" class="login-screen">
+    <div class="login-wrap">
+      <div class="brand-panel">
+        <div>
+          <h1>إدارة شؤون عائلة النجار</h1>
+          <p>نظام محلي لتنظيم الأفخاذ والأفراد، متابعة التبرعات والتوزيع، وإدارة المناسبات والتقارير من مكان واحد.</p>
+        </div>
+        <div class="brand-stats" aria-label="مزايا النظام">
+          <div class="brand-stat"><strong>محلي</strong><span>IndexedDB</span></div>
+          <div class="brand-stat"><strong>RTL</strong><span>واجهة عربية</span></div>
+          <div class="brand-stat"><strong>SPA</strong><span>ملف واحد</span></div>
+        </div>
+      </div>
+      <form id="loginForm" class="login-card">
+        <h2>تسجيل الدخول</h2>
+        <p class="muted">المصادقة هنا نموذجية ومحلية فقط للمرحلة الأولى.</p>
+        <div class="field">
+          <label for="username">اسم المستخدم</label>
+          <input id="username" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="password">كلمة المرور</label>
+          <input id="password" type="password" autocomplete="current-password" required>
+        </div>
+        <div id="loginError" class="error" aria-live="polite"></div>
+        <button class="btn primary" type="submit">دخول</button>
+        <p class="muted">تجربة: admin/admin123 أو member/member123</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="app" class="layout hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-title">
+        <div class="side-logo">ن</div>
+        <div><strong>عائلة النجار</strong><span>إدارة اللجنة</span></div>
+      </div>
+      <nav id="nav"></nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <button class="btn icon menu-toggle" id="menuBtn" type="button" title="القائمة">☰</button>
+        <div class="topbar-title">
+          <strong id="pageTitle">لوحة التحكم</strong>
+          <span id="userBadge">-</span>
+        </div>
+        <form id="globalSearchForm" class="search">
+          <span>⌕</span>
+          <input id="globalSearchInput" placeholder="بحث سريع في الأقسام" aria-label="بحث سريع">
+        </form>
+        <div class="top-actions">
+          <div class="notif-wrap">
+            <button class="btn icon" id="bellBtn" type="button" title="الإشعارات">🔔<span id="bellBadge" class="badge hidden">0</span></button>
+            <div id="notifPanel" class="notif-panel hidden"></div>
+          </div>
+          <button class="btn ghost" id="logoutBtn" type="button">خروج</button>
+        </div>
+      </header>
+      <section id="content" class="content" tabindex="-1"></section>
+    </main>
+  </section>
+
+  <div id="modalRoot" class="modal-root" aria-hidden="true"></div>
+  <div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    function uid(){
+      return Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+    }
+
+    const DB = {
+      STORES:["users","branches","members","donors","categories","donations","distributions","events","notifications","activity","meta"],
+      _db:null,
+      open(){
+        return new Promise((resolve,reject)=>{
+          const req = indexedDB.open("najjar_family_db",1);
+          req.onupgradeneeded = () => {
+            const db = req.result;
+            DB.STORES.forEach((store)=>{
+              if(!db.objectStoreNames.contains(store)) db.createObjectStore(store,{keyPath:"id"});
+            });
+          };
+          req.onsuccess = () => { DB._db = req.result; resolve(); };
+          req.onerror = () => reject(req.error);
+          req.onblocked = () => reject(new Error("تعذر فتح قاعدة البيانات لأن نافذة أخرى تستخدمها."));
+        });
+      },
+      _store(store,mode){
+        if(!DB._db) throw new Error("قاعدة البيانات غير مفتوحة");
+        return DB._db.transaction(store,mode).objectStore(store);
+      },
+      all(store){
+        return new Promise((resolve,reject)=>{
+          const req = DB._store(store,"readonly").getAll();
+          req.onsuccess = () => resolve(req.result || []);
+          req.onerror = () => reject(req.error);
+        });
+      },
+      get(store,id){
+        return new Promise((resolve,reject)=>{
+          const req = DB._store(store,"readonly").get(id);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      },
+      put(store,value){
+        return new Promise((resolve,reject)=>{
+          const rec = value;
+          if(!rec.id) rec.id = uid();
+          const req = DB._store(store,"readwrite").put(rec);
+          req.onsuccess = () => resolve(rec);
+          req.onerror = () => reject(req.error);
+        });
+      },
+      del(store,id){
+        return new Promise((resolve,reject)=>{
+          const req = DB._store(store,"readwrite").delete(id);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => reject(req.error);
+        });
+      },
+      clear(store){
+        return new Promise((resolve,reject)=>{
+          const req = DB._store(store,"readwrite").clear();
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => reject(req.error);
+        });
+      }
+    };
+
+    const CACHE = {};
+    const CURRENT = {user:null,route:"dashboard",memberMode:"list",memberFilters:{q:"",branchId:"",status:""}};
+    const CATEGORY_COLORS = ["#1E6FB8","#1E7A4C","#C0392B","#C9A24B","#8E44AD","#16A085","#E67E22","#2C3E50"];
+    const AR = new Intl.NumberFormat("ar");
+
+    const SECTIONS = [
+      {group:"الرئيسية",items:[
+        {id:"dashboard",label:"لوحة التحكم",icon:"▦"},
+        {id:"branches",label:"الأفخاذ والفروع",icon:"◇",store:"branches"},
+        {id:"members",label:"الأفراد والشجرة",icon:"♙",store:"members"}
+      ]},
+      {group:"التبرعات والتوزيع",items:[
+        {id:"categories",label:"أصناف المشاريع",icon:"■",store:"categories"},
+        {id:"donors",label:"المبادرون",icon:"◉",store:"donors"},
+        {id:"donations",label:"التبرعات",icon:"₪",store:"donations"},
+        {id:"distributions",label:"جداول التوزيع",icon:"▤",store:"distributions"}
+      ]},
+      {group:"التواصل والمتابعة",items:[
+        {id:"events",label:"المناسبات",icon:"◌",store:"events"},
+        {id:"notifications",label:"الإشعارات",icon:"🔔",store:"notifications"},
+        {id:"reports",label:"التقارير",icon:"▧"},
+        {id:"activity",label:"سجل النشاطات",icon:"☷",store:"activity"}
+      ]},
+      {group:"الإدارة",items:[
+        {id:"backup",label:"النسخ الاحتياطي",icon:"⇩",admin:true},
+        {id:"users",label:"إدارة المستخدمين",icon:"⚙",store:"users",admin:true}
+      ]}
+    ];
+
+    function allItems(){ return SECTIONS.flatMap(g => g.items); }
+    function esc(s){
+      return String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+    }
+    function num(n){ return AR.format(Number(n || 0)); }
+    function money(n){ return num(n) + " ₪"; }
+    function fmtDate(d){
+      if(!d) return "-";
+      try { return new Date(d + "T00:00:00").toLocaleDateString("ar",{year:"numeric",month:"long",day:"numeric"}); }
+      catch(e){ return esc(d); }
+    }
+    function relTime(ts){
+      const diff = Math.max(1,Date.now() - Number(ts || Date.now()));
+      const min = Math.floor(diff/60000), hr = Math.floor(min/60), day = Math.floor(hr/24);
+      if(day) return "قبل " + num(day) + " يوم";
+      if(hr) return "قبل " + num(hr) + " ساعة";
+      if(min) return "قبل " + num(min) + " دقيقة";
+      return "الآن";
+    }
+    function today(){ return new Date().toISOString().slice(0,10); }
+    function byId(store,id){ return (CACHE[store] || []).find(r => r.id === id); }
+    function branchName(id){ return byId("branches",id)?.name || "-"; }
+    function memberName(id){ return byId("members",id)?.name || "-"; }
+    function donorName(id){ return byId("donors",id)?.name || "-"; }
+    function categoryName(id){ return byId("categories",id)?.name || "-"; }
+    function pageItem(id){ return allItems().find(x => x.id === id); }
+
+    async function refreshCache(){
+      for(const store of DB.STORES){
+        if(store !== "meta") CACHE[store] = await DB.all(store);
+      }
+    }
+
+    async function logActivity(action,entity,details){
+      if(!CURRENT.user) return;
+      await DB.put("activity",{
+        userId:CURRENT.user.id,
+        userName:CURRENT.user.name,
+        action, entity, details,
+        at:Date.now()
+      });
+      CACHE.activity = await DB.all("activity");
+    }
+
+    async function pushNotif(kind,title,body){
+      await DB.put("notifications",{kind,title,body,read:false,date:Date.now()});
+      CACHE.notifications = await DB.all("notifications");
+      renderBell();
+    }
+
+    async function seedIfEmpty(){
+      const users = await DB.all("users");
+      if(users.length) return;
+      const branch1 = {id:"b-salem",name:"آل سالم",type:"فخذ",parentId:"",headName:"أبو سالم",notes:""};
+      const branch2 = {id:"b-yousef",name:"آل يوسف",type:"فخذ",parentId:"",headName:"أبو يوسف",notes:""};
+      const branch3 = {id:"b-khaleel",name:"آل خليل",type:"فخذ",parentId:"",headName:"أبو خليل",notes:""};
+      const sub1 = {id:"b-salem-a",name:"فرع أحمد",type:"فرع",parentId:"b-salem",headName:"أحمد سالم",notes:""};
+      const sub2 = {id:"b-yousef-a",name:"فرع محمود",type:"فرع",parentId:"b-yousef",headName:"محمود يوسف",notes:""};
+      const sub3 = {id:"b-khaleel-a",name:"فرع علي",type:"فرع",parentId:"b-khaleel",headName:"علي خليل",notes:""};
+      const members = [
+        {id:"m-salem",name:"سالم النجار",branchId:"b-salem",gender:"ذكر",birthDate:"1954-04-10",phone:"",status:"حي",fatherId:"",notes:""},
+        {id:"m-ahmad",name:"أحمد سالم النجار",branchId:"b-salem-a",gender:"ذكر",birthDate:"1980-06-15",phone:"0599000001",status:"حي",fatherId:"m-salem",notes:""},
+        {id:"m-mohammad",name:"محمد سالم النجار",branchId:"b-salem-a",gender:"ذكر",birthDate:"1984-09-02",phone:"0599000002",status:"حي",fatherId:"m-salem",notes:""},
+        {id:"m-yousef",name:"يوسف النجار",branchId:"b-yousef",gender:"ذكر",birthDate:"1948-01-12",phone:"",status:"متوفى",fatherId:"",notes:""}
+      ];
+      const categories = [
+        {id:"c-diwan",name:"بناء الديوان",description:"مشروع تجهيز ديوان العائلة",target:150000,color:"#1E6FB8"},
+        {id:"c-help",name:"صندوق المساعدات",description:"دعم الحالات المحتاجة",target:80000,color:"#1E7A4C"},
+        {id:"c-cemetery",name:"صيانة المقبرة",description:"صيانة دورية",target:40000,color:"#C0392B"}
+      ];
+      const donors = [
+        {id:"d-1",name:"أحمد سالم",phone:"0599000101",branchId:"b-salem-a",memberId:"m-ahmad",notes:""},
+        {id:"d-2",name:"محمد سالم",phone:"0599000102",branchId:"b-salem-a",memberId:"m-mohammad",notes:""},
+        {id:"d-3",name:"خالد يوسف",phone:"0599000103",branchId:"b-yousef-a",memberId:"",notes:""},
+        {id:"d-4",name:"علي خليل",phone:"0599000104",branchId:"b-khaleel-a",memberId:"",notes:""}
+      ];
+      const d = new Date();
+      const ago = days => { const x = new Date(d); x.setDate(x.getDate()-days); return x.toISOString().slice(0,10); };
+      const donations = [
+        {donorId:"d-1",categoryId:"c-diwan",amount:12000,date:ago(8),method:"نقدي",notes:""},
+        {donorId:"d-2",categoryId:"c-help",amount:5000,date:ago(18),method:"تحويل بنكي",notes:""},
+        {donorId:"d-3",categoryId:"c-cemetery",amount:3500,date:ago(30),method:"شيك",notes:""},
+        {donorId:"d-4",categoryId:"c-diwan",amount:20000,date:ago(42),method:"تحويل بنكي",notes:""},
+        {donorId:"d-1",categoryId:"c-help",amount:2500,date:ago(65),method:"نقدي",notes:""},
+        {donorId:"d-2",categoryId:"c-diwan",amount:7000,date:ago(82),method:"أخرى",notes:""}
+      ];
+      const future = days => { const x = new Date(d); x.setDate(x.getDate()+days); return x.toISOString().slice(0,10); };
+      const events = [
+        {title:"اجتماع لجنة العائلة",type:"اجتماع",date:future(12),location:"ديوان العائلة",description:"مراجعة المشاريع الحالية"},
+        {title:"فرح عائلي",type:"فرح",date:future(28),location:"قاعة النجار",description:"دعوة عامة للعائلة"}
+      ];
+      const distributions = [{
+        title:"توزيع مساعدات شهرية",
+        categoryId:"c-help",
+        date:today(),
+        status:"جارٍ",
+        beneficiaries:[{name:"أسرة أ",amount:1200},{name:"أسرة ب",amount:950},{name:"أسرة ج",amount:800}],
+        total:2950
+      }];
+      const seedData = {
+        users:[
+          {id:"u-admin",username:"admin",password:"admin123",name:"مدير الموقع",role:"admin",active:true},
+          {id:"u-member",username:"member",password:"member123",name:"عضو لجنة",role:"member",active:true}
+        ],
+        branches:[branch1,branch2,branch3,sub1,sub2,sub3],
+        members,categories,donors,donations,distributions,events,
+        notifications:[{kind:"system",title:"مرحبًا",body:"تم إنشاء بيانات تجريبية للبدء.",read:false,date:Date.now()}],
+        activity:[{userId:"system",userName:"النظام",action:"أضاف",entity:"بيانات تجريبية",details:"تهيئة أول تشغيل",at:Date.now()}]
+      };
+      for(const [store,rows] of Object.entries(seedData)){
+        for(const row of rows) await DB.put(store,row);
+      }
+    }
+
+    function toast(msg,type="info"){
+      const root = document.getElementById("toastRoot");
+      const el = document.createElement("div");
+      el.className = "toast " + type;
+      el.textContent = msg;
+      root.appendChild(el);
+      setTimeout(()=>el.remove(),2600);
+    }
+
+    function openModal(title,bodyHTML,footHTML=""){
+      const root = document.getElementById("modalRoot");
+      root.innerHTML = `
+        <div class="modal-backdrop" data-close="1"></div>
+        <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <div class="modal-head"><h3 id="modalTitle">${esc(title)}</h3><button class="btn icon" type="button" data-close="1" title="إغلاق">×</button></div>
+          <div class="modal-body">${bodyHTML}</div>
+          ${footHTML ? `<div class="modal-foot">${footHTML}</div>` : ""}
+        </section>`;
+      root.classList.add("open");
+      root.setAttribute("aria-hidden","false");
+      root.querySelector("[data-close]").focus();
+    }
+    function closeModal(){
+      const root = document.getElementById("modalRoot");
+      root.classList.remove("open");
+      root.setAttribute("aria-hidden","true");
+      root.innerHTML = "";
+    }
+    function confirmDialog(msg,onYes){
+      openModal("تأكيد الإجراء",`<p>${esc(msg)}</p>`,`
+        <button class="btn red" id="confirmYes" type="button">نعم، نفّذ</button>
+        <button class="btn" type="button" data-close="1">إلغاء</button>`);
+      document.getElementById("confirmYes").onclick = async () => {
+        await onYes();
+        closeModal();
+      };
+    }
+    function emptyState(icon,title,subtitle){
+      return `<div class="empty"><span class="empty-icon">${esc(icon)}</span><strong>${esc(title)}</strong><p>${esc(subtitle)}</p></div>`;
+    }
+
+    function fieldValue(values,name){ return values && values[name] != null ? values[name] : ""; }
+    function formModal(title,fields,values,onSubmit){
+      const body = `<form id="modalForm" class="form-grid">
+        ${fields.map(f=>{
+          const val = fieldValue(values,f.name);
+          const req = f.required ? "required" : "";
+          const full = f.col === "full" ? " full" : "";
+          const ph = f.ph ? `placeholder="${esc(f.ph)}"` : "";
+          const rows = f.rows ? `rows="${Number(f.rows)}"` : "";
+          let control = "";
+          if(f.type === "select"){
+            control = `<select name="${esc(f.name)}" ${req}>${(f.options||[]).map(o=>{
+              const value = typeof o === "object" ? o.value : o;
+              const label = typeof o === "object" ? o.label : o;
+              return `<option value="${esc(value)}" ${String(value)===String(val)?"selected":""}>${esc(label)}</option>`;
+            }).join("")}</select>`;
+          } else if(f.type === "textarea"){
+            control = `<textarea name="${esc(f.name)}" ${req} ${ph} ${rows}>${esc(val)}</textarea>`;
+          } else {
+            const type = f.type || "text";
+            control = `<input name="${esc(f.name)}" type="${esc(type)}" value="${esc(val)}" ${req} ${ph}>`;
+          }
+          return `<div class="field${full}"><label>${esc(f.label)}</label>${control}</div>`;
+        }).join("")}
+      </form>`;
+      openModal(title,body,`<button class="btn primary" id="modalSave" type="button">حفظ</button><button class="btn" data-close="1" type="button">إلغاء</button>`);
+      document.getElementById("modalSave").onclick = async () => {
+        const form = document.getElementById("modalForm");
+        if(!form.reportValidity()) return;
+        const data = {};
+        fields.forEach(f=>{
+          const el = form.elements[f.name];
+          let v = el.value.trim();
+          if(f.type === "number") v = Math.max(0,Number(v || 0));
+          data[f.name] = v;
+        });
+        await onSubmit(data);
+        closeModal();
+      };
+    }
+
+    function allowed(item){ return !(item.admin && CURRENT.user?.role !== "admin"); }
+    function renderNav(){
+      const nav = document.getElementById("nav");
+      nav.innerHTML = SECTIONS.map(group=>{
+        const items = group.items.filter(allowed);
+        if(!items.length) return "";
+        return `<div class="nav-group"><div class="nav-group-title">${esc(group.group)}</div>${items.map(item=>`
+          <button class="nav-btn ${CURRENT.route===item.id?"active":""}" type="button" data-route="${esc(item.id)}">
+            <span class="nav-ico">${esc(item.icon)}</span><span>${esc(item.label)}</span>
+          </button>`).join("")}</div>`;
+      }).join("");
+      nav.querySelectorAll("[data-route]").forEach(btn=>btn.onclick=()=>navigate(btn.dataset.route));
+    }
+    function setActive(){
+      document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.route===CURRENT.route));
+      document.getElementById("pageTitle").textContent = pageItem(CURRENT.route)?.label || "النظام";
+    }
+    function renderAppChrome(){
+      document.getElementById("userBadge").textContent = `${CURRENT.user.name} · ${CURRENT.user.role === "admin" ? "مدير" : "عضو لجنة"}`;
+      renderNav();
+      renderBell();
+    }
+    function navigate(route){
+      const item = pageItem(route);
+      if(!item || !allowed(item)){ toast("ليست لديك صلاحية لهذا القسم","err"); return; }
+      CURRENT.route = route;
+      document.body.classList.remove("sidebar-open");
+      setActive();
+      const fn = window["view" + route[0].toUpperCase() + route.slice(1)];
+      if(typeof fn === "function") fn();
+      document.getElementById("content").focus({preventScroll:true});
+    }
+    function viewHeader(title,subtitle,actions=""){
+      return `<div class="view-head"><div><h2>${esc(title)}</h2><p>${esc(subtitle)}</p></div><div class="toolbar">${actions}</div></div>`;
+    }
+
+    function donorTotal(id){ return CACHE.donations.filter(d=>d.donorId===id).reduce((s,d)=>s+Number(d.amount||0),0); }
+    function categoryTotal(id){ return CACHE.donations.filter(d=>d.categoryId===id).reduce((s,d)=>s+Number(d.amount||0),0); }
+    function countMembersInBranch(id){
+      const ids = [id,...CACHE.branches.filter(b=>b.parentId===id).map(b=>b.id)];
+      return CACHE.members.filter(m=>ids.includes(m.branchId)).length;
+    }
+
+    function donutChart(data){
+      const total = data.reduce((s,x)=>s+Number(x.value||0),0);
+      if(!total) return emptyState("◌","لا بيانات","لا توجد قيم كافية للرسم.");
+      let acc = 0;
+      const circles = data.map(x=>{
+        const val = Number(x.value||0);
+        const len = val / total * 100;
+        const dash = `${len} ${100-len}`;
+        const off = -acc;
+        acc += len;
+        return `<circle r="15.9" cx="20" cy="20" fill="transparent" stroke="${esc(x.color||"#1E6FB8")}" stroke-width="8" stroke-dasharray="${dash}" stroke-dashoffset="${off}"></circle>`;
+      }).join("");
+      return `<div><svg viewBox="0 0 42 42" role="img">${circles}<circle r="10" cx="20" cy="20" fill="#fff"></circle></svg>${legend(data)}</div>`;
+    }
+    function barChart(data){
+      const max = Math.max(...data.map(x=>Number(x.value||0)),1);
+      if(!data.length) return emptyState("▥","لا بيانات","أضف سجلات لعرض الرسم.");
+      const bars = data.map((x,i)=>{
+        const h = Math.max(4,Number(x.value||0)/max*150);
+        const xPos = 30 + i*54;
+        return `<g><rect x="${xPos}" y="${170-h}" width="32" height="${h}" rx="4" fill="${esc(x.color||"#1E6FB8")}"></rect><text x="${xPos+16}" y="190" font-size="10" text-anchor="middle">${esc(String(x.label).slice(0,8))}</text></g>`;
+      }).join("");
+      return `<svg viewBox="0 0 ${Math.max(260,70+data.length*54)} 210" role="img">${bars}</svg>`;
+    }
+    function lineChart(points){
+      if(!points.length) return emptyState("⌁","لا بيانات","لا توجد تبرعات في الفترة.");
+      const max = Math.max(...points.map(p=>Number(p.value||0)),1);
+      const w = Math.max(320,points.length*70), h = 210;
+      const step = (w-60)/Math.max(1,points.length-1);
+      const coords = points.map((p,i)=>[30+i*step,170-(Number(p.value||0)/max*130)]);
+      const line = coords.map(p=>p.join(",")).join(" ");
+      const dots = coords.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#1E6FB8"><title>${esc(points[i].label)}: ${money(points[i].value)}</title></circle>`).join("");
+      const labels = coords.map((p,i)=>`<text x="${p[0]}" y="194" font-size="10" text-anchor="middle">${esc(points[i].label)}</text>`).join("");
+      return `<svg viewBox="0 0 ${w} ${h}" role="img"><polyline fill="none" stroke="#1E6FB8" stroke-width="3" points="${line}"></polyline>${dots}${labels}</svg>`;
+    }
+    function legend(data){
+      return `<div class="legend">${data.map(x=>`<span><i class="swatch" style="background:${esc(x.color||"#1E6FB8")}"></i>${esc(x.label)} (${num(x.value)})</span>`).join("")}</div>`;
+    }
+
+    function viewDashboard(){
+      const totalDon = CACHE.donations.reduce((s,d)=>s+Number(d.amount||0),0);
+      const thighs = CACHE.branches.filter(b=>b.type==="فخذ").length;
+      const branches = CACHE.branches.filter(b=>b.type==="فرع").length;
+      const cats = CACHE.categories.map(c=>({label:c.name,value:categoryTotal(c.id),color:c.color}));
+      const byBranch = CACHE.branches.filter(b=>b.type==="فخذ").map(b=>({label:b.name,value:countMembersInBranch(b.id),color:"#1E6FB8"}));
+      const months = [];
+      for(let i=5;i>=0;i--){
+        const d = new Date(); d.setMonth(d.getMonth()-i);
+        const key = d.toISOString().slice(0,7);
+        months.push({key,label:d.toLocaleDateString("ar",{month:"short"}),value:0});
+      }
+      CACHE.donations.forEach(d=>{ const m = months.find(x=>x.key===String(d.date).slice(0,7)); if(m) m.value += Number(d.amount||0); });
+      const latest = [...CACHE.activity].sort((a,b)=>b.at-a.at).slice(0,6);
+      const upcoming = [...CACHE.events].filter(e=>e.date>=today()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6);
+      document.getElementById("content").innerHTML = viewHeader("لوحة التحكم","ملخص مباشر لبيانات العائلة والتبرعات والمناسبات.") + `
+        <div class="grid cols-4">
+          ${kpi("الأفخاذ",thighs,"◇")}${kpi("الفروع",branches,"◆")}${kpi("الأفراد",CACHE.members.length,"♙")}${kpi("إجمالي التبرعات",money(totalDon),"₪")}
+        </div>
+        <div class="grid cols-3" style="margin-top:14px">
+          <section class="panel"><h3>التبرعات خلال ٦ أشهر</h3><div class="chart">${lineChart(months)}</div></section>
+          <section class="panel"><h3>التبرعات حسب الصنف</h3><div class="chart">${donutChart(cats)}</div></section>
+          <section class="panel"><h3>الأفراد حسب الفخذ</h3><div class="chart">${barChart(byBranch)}</div></section>
+        </div>
+        <div class="grid cols-2" style="margin-top:14px">
+          <section class="panel"><h3>أحدث النشاطات</h3>${smallActivity(latest)}</section>
+          <section class="panel"><h3>المناسبات القادمة</h3>${eventList(upcoming)}</section>
+        </div>`;
+    }
+    function kpi(label,value,icon){ return `<div class="kpi"><div><strong>${esc(value)}</strong><span>${esc(label)}</span></div><div class="mark">${esc(icon)}</div></div>`; }
+    function smallActivity(rows){
+      if(!rows.length) return emptyState("☷","لا نشاط","لم يتم تسجيل عمليات بعد.");
+      return `<div class="timeline">${rows.map(a=>`<div class="timeline-item"><div class="timeline-ico">☷</div><div><strong>${esc(a.action)} ${esc(a.entity)}</strong><div class="muted">${esc(a.details)} · ${esc(a.userName)} · ${relTime(a.at)}</div></div></div>`).join("")}</div>`;
+    }
+    function eventList(rows){
+      if(!rows.length) return emptyState("◌","لا مناسبات قادمة","أضف مناسبة جديدة للمتابعة.");
+      return `<div class="timeline">${rows.map(e=>`<div class="timeline-item"><div class="timeline-ico">${eventIcon(e.type)}</div><div><strong>${esc(e.title)}</strong><div class="muted">${fmtDate(e.date)} · ${esc(e.location||"-")}</div></div></div>`).join("")}</div>`;
+    }
+    function eventIcon(type){ return ({فرح:"♡",وفاة:"!",عزاء:"◆",اجتماع:"◎"}[type] || "◌"); }
+
+    function viewBranches(){
+      const roots = CACHE.branches.filter(b=>b.type==="فخذ");
+      document.getElementById("content").innerHTML = viewHeader("الأفخاذ والفروع","إدارة البنية العائلية وعدّ الأفراد في كل فخذ وفرع.",`<button class="btn primary" onclick="editBranch()">إضافة</button>`) +
+        (roots.length ? `<div class="tree">${roots.map(renderBranchNode).join("")}</div>` : emptyState("◇","لا توجد أفخاذ","ابدأ بإضافة فخذ جديد."));
+    }
+    function renderBranchNode(b){
+      const children = CACHE.branches.filter(x=>x.parentId===b.id);
+      return `<div class="tree-node">
+        <div class="view-head"><div><strong>${esc(b.name)}</strong> <span class="pill blue">${esc(b.type)}</span><p class="muted">${esc(b.headName||"لا يوجد رئيس")} · ${num(countMembersInBranch(b.id))} فرد</p></div>${actions("editBranch",b.id,"branches",b.name,"فخذ/فرع")}</div>
+        ${children.length ? `<div class="tree-children">${children.map(c=>`<div class="tree-node"><strong>${esc(c.name)}</strong> <span class="pill gray">فرع</span><p class="muted">${esc(c.headName||"")} · ${num(countMembersInBranch(c.id))} فرد</p>${actions("editBranch",c.id,"branches",c.name,"فرع")}</div>`).join("")}</div>` : ""}
+      </div>`;
+    }
+    function branchOptions(includeEmpty=true){
+      return (includeEmpty?[{value:"",label:"بدون"}]:[]).concat(CACHE.branches.map(b=>({value:b.id,label:`${b.type} - ${b.name}`})));
+    }
+    function editBranch(id){
+      const existing = id ? byId("branches",id) : null;
+      formModal(existing ? "تعديل فخذ/فرع" : "إضافة فخذ/فرع",[
+        {name:"name",label:"الاسم",required:true},
+        {name:"type",label:"النوع",type:"select",required:true,options:["فخذ","فرع"]},
+        {name:"parentId",label:"الفخذ الأب",type:"select",options:branchOptions(true)},
+        {name:"headName",label:"رئيس الفخذ"},
+        {name:"notes",label:"ملاحظات",type:"textarea",col:"full",rows:3}
+      ],existing,async data=>saveRecord("branches",existing,data,"فخذ/فرع",data.name));
+    }
+
+    function viewMembers(){
+      const f = CURRENT.memberFilters;
+      const filtered = filteredMembers();
+      document.getElementById("content").innerHTML = viewHeader("الأفراد وشجرة العائلة","بحث وتصفية وعرض شجري بعلاقة الأب والأبناء.",`<button class="btn primary" onclick="editMember()">إضافة فرد</button>`) + `
+        <div class="filters">
+          <input id="memberQ" placeholder="بحث بالاسم أو الهاتف" value="${esc(f.q)}">
+          <select id="memberBranch"><option value="">كل الأفخاذ</option>${branchOptions(false).map(o=>`<option value="${esc(o.value)}" ${o.value===f.branchId?"selected":""}>${esc(o.label)}</option>`).join("")}</select>
+          <select id="memberStatus"><option value="">كل الحالات</option><option ${f.status==="حي"?"selected":""}>حي</option><option ${f.status==="متوفى"?"selected":""}>متوفى</option></select>
+          <div class="seg"><button type="button" class="${CURRENT.memberMode==="list"?"active":""}" onclick="setMemberMode('list')">قائمة</button><button type="button" class="${CURRENT.memberMode==="tree"?"active":""}" onclick="setMemberMode('tree')">شجرة</button></div>
+        </div>
+        <div id="membersBody">${CURRENT.memberMode==="tree" ? membersTree(filtered) : membersTable(filtered)}</div>`;
+      ["memberQ","memberBranch","memberStatus"].forEach(id=>{
+        document.getElementById(id).oninput = () => {
+          CURRENT.memberFilters = {
+            q:document.getElementById("memberQ").value.trim(),
+            branchId:document.getElementById("memberBranch").value,
+            status:document.getElementById("memberStatus").value
+          };
+          viewMembers();
+        };
+      });
+    }
+    function filteredMembers(){
+      const f = CURRENT.memberFilters;
+      return CACHE.members.filter(m=>(!f.q || [m.name,m.phone].some(x=>String(x||"").includes(f.q))) && (!f.branchId || m.branchId===f.branchId) && (!f.status || m.status===f.status));
+    }
+    function setMemberMode(mode){ CURRENT.memberMode=mode; viewMembers(); }
+    function membersTable(rows){
+      if(!rows.length) return emptyState("♙","لا أفراد","لا توجد نتائج مطابقة.");
+      return table(["الاسم","الفخذ/الفرع","الجنس","الميلاد","الهاتف","الحالة","إجراءات"],rows.map(m=>[
+        esc(m.name),esc(branchName(m.branchId)),esc(m.gender||"-"),fmtDate(m.birthDate),`<span class="ltr">${esc(m.phone||"-")}</span>`,statusPill(m.status||"حي"),actions("editMember",m.id,"members",m.name,"فرد")
+      ]));
+    }
+    function membersTree(rows){
+      const ids = new Set(rows.map(m=>m.id));
+      const roots = rows.filter(m=>!m.fatherId || !ids.has(m.fatherId));
+      if(!rows.length) return emptyState("♙","لا أفراد","لا توجد نتائج مطابقة.");
+      const render = m => `<div class="tree-node ${m.status==="متوفى"?"deceased":""}"><strong>${esc(m.name)}</strong> ${statusPill(m.status||"حي")}<p class="muted">${esc(branchName(m.branchId))}</p>${actions("editMember",m.id,"members",m.name,"فرد")}${rows.filter(c=>c.fatherId===m.id).length?`<div class="tree-children">${rows.filter(c=>c.fatherId===m.id).map(render).join("")}</div>`:""}</div>`;
+      return `<div class="tree">${roots.map(render).join("")}</div>`;
+    }
+    function statusPill(s){ return `<span class="pill ${s==="متوفى"?"gray":"green"}">${esc(s)}</span>`; }
+    function editMember(id){
+      const existing = id ? byId("members",id) : null;
+      const members = [{value:"",label:"بدون"}].concat(CACHE.members.filter(m=>m.id!==id).map(m=>({value:m.id,label:m.name})));
+      formModal(existing?"تعديل فرد":"إضافة فرد",[
+        {name:"name",label:"الاسم الكامل",required:true},
+        {name:"branchId",label:"الفخذ/الفرع",type:"select",options:branchOptions(true)},
+        {name:"gender",label:"الجنس",type:"select",options:["ذكر","أنثى"]},
+        {name:"birthDate",label:"تاريخ الميلاد",type:"date"},
+        {name:"phone",label:"الهاتف",type:"tel"},
+        {name:"status",label:"الحالة",type:"select",options:["حي","متوفى"]},
+        {name:"fatherId",label:"الأب",type:"select",options:members},
+        {name:"notes",label:"ملاحظات",type:"textarea",col:"full",rows:3}
+      ],existing || {status:"حي"},async data=>saveRecord("members",existing,data,"فرد",data.name));
+    }
+
+    function viewCategories(){
+      document.getElementById("content").innerHTML = viewHeader("أصناف مشاريع التبرع","متابعة المستهدف والمجمع ونسبة الإنجاز لكل صنف.",`<button class="btn primary" onclick="editCategory()">إضافة صنف</button>`) +
+      (CACHE.categories.length ? `<div class="card-list">${CACHE.categories.map(c=>{
+        const total = categoryTotal(c.id), pct = c.target ? Math.min(100,Math.round(total/Number(c.target)*100)) : 0;
+        return `<section class="panel category-card" style="border-top-color:${esc(c.color)}"><div class="view-head"><div><h3>${esc(c.name)}</h3><p>${esc(c.description||"")}</p></div>${actions("editCategory",c.id,"categories",c.name,"صنف")}</div><strong>${money(total)} من ${money(c.target)}</strong><div class="bar" style="margin:10px 0"><span style="width:${pct}%;background:${esc(c.color)}"></span></div><span class="pill green">${num(pct)}%</span></section>`;
+      }).join("")}</div>` : emptyState("■","لا أصناف","أضف صنف مشروع تبرع."));
+    }
+    function editCategory(id){
+      const existing = id ? byId("categories",id) : null;
+      formModal(existing?"تعديل صنف":"إضافة صنف",[
+        {name:"name",label:"الاسم",required:true},
+        {name:"target",label:"المبلغ المستهدف",type:"number"},
+        {name:"color",label:"اللون",type:"select",options:CATEGORY_COLORS.map(c=>({value:c,label:c}))},
+        {name:"description",label:"الوصف",type:"textarea",col:"full",rows:3}
+      ],existing || {color:CATEGORY_COLORS[0],target:0},async data=>saveRecord("categories",existing,data,"صنف",data.name));
+    }
+
+    function viewDonors(){
+      const rows = [...CACHE.donors].sort((a,b)=>donorTotal(b.id)-donorTotal(a.id));
+      document.getElementById("content").innerHTML = viewHeader("المبادرون","سجل المتبرعين وإجمالي مساهماتهم.",`<button class="btn primary" onclick="editDonor()">إضافة مبادر</button>`) +
+      (rows.length ? table(["الاسم","الهاتف","الفخذ","الفرد المرتبط","الإجمالي","عدد التبرعات","إجراءات"],rows.map(d=>[
+        esc(d.name),`<span class="ltr">${esc(d.phone||"-")}</span>`,esc(branchName(d.branchId)),esc(d.memberId?memberName(d.memberId):"-"),money(donorTotal(d.id)),num(CACHE.donations.filter(x=>x.donorId===d.id).length),actions("editDonor",d.id,"donors",d.name,"مبادر")
+      ])) : emptyState("◉","لا مبادرين","أضف مبادرًا لتسجيل تبرعاته."));
+    }
+    function editDonor(id){
+      const existing = id ? byId("donors",id) : null;
+      formModal(existing?"تعديل مبادر":"إضافة مبادر",[
+        {name:"name",label:"الاسم",required:true},
+        {name:"phone",label:"الهاتف",type:"tel"},
+        {name:"branchId",label:"الفخذ/الفرع",type:"select",options:branchOptions(true)},
+        {name:"memberId",label:"ربط بفرد",type:"select",options:[{value:"",label:"بدون"}].concat(CACHE.members.map(m=>({value:m.id,label:m.name})))},
+        {name:"notes",label:"ملاحظات",type:"textarea",col:"full",rows:3}
+      ],existing,async data=>saveRecord("donors",existing,data,"مبادر",data.name));
+    }
+
+    function viewDonations(){
+      const rows = [...CACHE.donations].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+      document.getElementById("content").innerHTML = viewHeader("التبرعات","تسجيل ومراجعة التبرعات مع تصدير CSV.",`<button class="btn primary" onclick="editDonation()">تسجيل تبرع</button><button class="btn green" onclick="exportCSV('donations')">CSV</button>`) +
+      (rows.length ? table(["التاريخ","المبادر","الصنف","المبلغ","طريقة الدفع","ملاحظات","إجراءات"],rows.map(d=>[
+        fmtDate(d.date),esc(donorName(d.donorId)),esc(categoryName(d.categoryId)),`<strong style="color:var(--green)">${money(d.amount)}</strong>`,esc(d.method||"-"),esc(d.notes||"-"),actions("editDonation",d.id,"donations",money(d.amount),"تبرع")
+      ])) : emptyState("₪","لا تبرعات","سجل أول تبرع."));
+    }
+    function editDonation(id){
+      if(!CACHE.donors.length || !CACHE.categories.length){ toast("يجب إضافة مبادر وصنف قبل تسجيل التبرع.","err"); return; }
+      const existing = id ? byId("donations",id) : null;
+      formModal(existing?"تعديل تبرع":"تسجيل تبرع",[
+        {name:"donorId",label:"المبادر",type:"select",required:true,options:CACHE.donors.map(d=>({value:d.id,label:d.name}))},
+        {name:"categoryId",label:"الصنف",type:"select",required:true,options:CACHE.categories.map(c=>({value:c.id,label:c.name}))},
+        {name:"amount",label:"المبلغ",type:"number",required:true},
+        {name:"date",label:"التاريخ",type:"date",required:true},
+        {name:"method",label:"طريقة الدفع",type:"select",options:["نقدي","تحويل بنكي","شيك","أخرى"]},
+        {name:"notes",label:"ملاحظات",type:"textarea",col:"full",rows:3}
+      ],existing || {date:today(),method:"نقدي"},async data=>{
+        await saveRecord("donations",existing,data,"تبرع",money(data.amount),false);
+        if(!existing) await pushNotif("donation","تبرع جديد",`${donorName(data.donorId)} تبرع بمبلغ ${money(data.amount)}`);
+        afterSave();
+      });
+    }
+
+    function viewDistributions(){
+      document.getElementById("content").innerHTML = viewHeader("جداول التوزيع","خطط الصرف والمستفيدون مع احتساب الإجمالي تلقائيًا.",`<button class="btn primary" onclick="editDistribution()">إضافة جدول</button>`) +
+      (CACHE.distributions.length ? `<div class="card-list">${CACHE.distributions.map(d=>`<section class="panel"><div class="view-head"><div><h3>${esc(d.title)}</h3><p>${fmtDate(d.date)} · ${esc(categoryName(d.categoryId))}</p></div>${actions("editDistribution",d.id,"distributions",d.title,"جدول توزيع")}</div><p>${distPill(d.status)} <strong>${money(d.total)}</strong></p>${table(["المستفيد","المبلغ"],(d.beneficiaries||[]).map(b=>[esc(b.name),money(b.amount)]),true)}</section>`).join("")}</div>` : emptyState("▤","لا جداول","أضف جدول توزيع."));
+    }
+    function distPill(s){ const c = s==="مكتمل"?"green":(s==="جارٍ"?"blue":"gold"); return `<span class="pill ${c}">${esc(s||"مخطط")}</span>`; }
+    function parseBeneficiaries(text){
+      return String(text||"").split(/\n+/).map(line=>{
+        const [name,amount] = line.split("|").map(x=>String(x||"").trim());
+        return name ? {name,amount:Math.max(0,Number(amount||0))} : null;
+      }).filter(Boolean);
+    }
+    function editDistribution(id){
+      const existing = id ? byId("distributions",id) : null;
+      const values = existing ? {...existing,beneficiariesText:(existing.beneficiaries||[]).map(b=>`${b.name} | ${b.amount}`).join("\n")} : {date:today(),status:"مخطط"};
+      formModal(existing?"تعديل جدول":"إضافة جدول",[
+        {name:"title",label:"العنوان",required:true},
+        {name:"categoryId",label:"الصنف",type:"select",options:[{value:"",label:"بدون"}].concat(CACHE.categories.map(c=>({value:c.id,label:c.name})))},
+        {name:"date",label:"التاريخ",type:"date"},
+        {name:"status",label:"الحالة",type:"select",options:["مخطط","جارٍ","مكتمل"]},
+        {name:"beneficiariesText",label:"المستفيدون: الاسم | المبلغ",type:"textarea",col:"full",rows:6}
+      ],values,async data=>{
+        const beneficiaries = parseBeneficiaries(data.beneficiariesText);
+        delete data.beneficiariesText;
+        data.beneficiaries = beneficiaries;
+        data.total = beneficiaries.reduce((s,b)=>s+Number(b.amount||0),0);
+        await saveRecord("distributions",existing,data,"جدول توزيع",data.title);
+      });
+    }
+
+    function viewEvents(){
+      const rows = [...CACHE.events].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+      document.getElementById("content").innerHTML = viewHeader("المناسبات","قائمة زمنية للمناسبات القادمة والسابقة.",`<button class="btn primary" onclick="editEvent()">إضافة مناسبة</button>`) +
+      (rows.length ? `<div class="timeline">${rows.map(e=>`<div class="panel timeline-item"><div class="timeline-ico">${eventIcon(e.type)}</div><div><div class="view-head"><div><h3>${esc(e.title)} ${e.date>=today()?'<span class="pill gold">قادمة</span>':''}</h3><p>${fmtDate(e.date)} · ${esc(e.location||"-")} · ${esc(e.type||"-")}</p></div>${actions("editEvent",e.id,"events",e.title,"مناسبة")}</div><p>${esc(e.description||"")}</p></div></div>`).join("")}</div>` : emptyState("◌","لا مناسبات","أضف مناسبة جديدة."));
+    }
+    function editEvent(id){
+      const existing = id ? byId("events",id) : null;
+      formModal(existing?"تعديل مناسبة":"إضافة مناسبة",[
+        {name:"title",label:"العنوان",required:true},
+        {name:"type",label:"النوع",type:"select",options:["فرح","وفاة","عزاء","اجتماع","أخرى"]},
+        {name:"date",label:"التاريخ",type:"date",required:true},
+        {name:"location",label:"المكان"},
+        {name:"description",label:"الوصف",type:"textarea",col:"full",rows:3}
+      ],existing || {date:today(),type:"اجتماع"},async data=>{
+        await saveRecord("events",existing,data,"مناسبة",data.title,false);
+        if(!existing) await pushNotif("event","مناسبة جديدة",`${data.title} بتاريخ ${fmtDate(data.date)}`);
+        afterSave();
+      });
+    }
+
+    function renderBell(){
+      const unread = (CACHE.notifications||[]).filter(n=>!n.read).length;
+      const badge = document.getElementById("bellBadge");
+      if(!badge) return;
+      badge.textContent = unread;
+      badge.classList.toggle("hidden",!unread);
+      const panel = document.getElementById("notifPanel");
+      const latest = [...(CACHE.notifications||[])].sort((a,b)=>b.date-a.date).slice(0,8);
+      panel.innerHTML = `<div class="view-head"><div><strong>الإشعارات</strong><p class="muted">${num(unread)} غير مقروء</p></div></div><div class="toolbar" style="margin-bottom:8px"><button class="btn" onclick="markAllRead()">تعليم الكل</button><button class="btn red" onclick="clearNotifs()">مسح</button></div><div class="notif-list">${latest.length?latest.map(notifHtml).join(""):emptyState("🔔","لا إشعارات","القائمة فارغة.")}</div>`;
+    }
+    function notifHtml(n){ return `<div class="notif-item ${n.read?"":"unread"}"><strong>${esc(n.title)}</strong><p>${esc(n.body)}</p><span class="muted">${relTime(n.date)}</span></div>`; }
+    function viewNotifications(){
+      const rows = [...CACHE.notifications].sort((a,b)=>b.date-a.date);
+      document.getElementById("content").innerHTML = viewHeader("الإشعارات","إدارة إشعارات التطبيق الداخلية.",`<button class="btn" onclick="markAllRead()">تعليم الكل</button><button class="btn red" onclick="clearNotifs()">مسح</button>`) +
+      (rows.length ? `<div class="notif-list">${rows.map(notifHtml).join("")}</div>` : emptyState("🔔","لا إشعارات","القائمة فارغة."));
+    }
+    async function markAllRead(){
+      for(const n of CACHE.notifications) if(!n.read) await DB.put("notifications",{...n,read:true});
+      await refreshCache(); renderBell(); if(CURRENT.route==="notifications") viewNotifications(); toast("تم تعليم الإشعارات","ok");
+    }
+    async function clearNotifs(){
+      confirmDialog("سيتم مسح كل الإشعارات. هل تريد المتابعة؟",async()=>{
+        await DB.clear("notifications"); await refreshCache(); renderBell(); if(CURRENT.route==="notifications") viewNotifications(); toast("تم مسح الإشعارات","ok");
+      });
+    }
+
+    const REPORT_DEFS = {
+      donations:{title:"تقرير التبرعات",headers:["التاريخ","المبادر","الصنف","المبلغ","طريقة الدفع"],rows:()=>CACHE.donations.map(d=>[fmtDate(d.date),donorName(d.donorId),categoryName(d.categoryId),money(d.amount),d.method||""])},
+      donors:{title:"تقرير المبادرين",headers:["الاسم","الهاتف","الفخذ","الإجمالي","عدد التبرعات"],rows:()=>CACHE.donors.map(d=>[d.name,d.phone||"",branchName(d.branchId),money(donorTotal(d.id)),CACHE.donations.filter(x=>x.donorId===d.id).length])},
+      members:{title:"تقرير الأفراد",headers:["الاسم","الفخذ","الجنس","الميلاد","الهاتف","الحالة"],rows:()=>CACHE.members.map(m=>[m.name,branchName(m.branchId),m.gender||"",fmtDate(m.birthDate),m.phone||"",m.status||""])},
+      distributions:{title:"تقرير التوزيع",headers:["العنوان","الصنف","التاريخ","الحالة","الإجمالي"],rows:()=>CACHE.distributions.map(d=>[d.title,categoryName(d.categoryId),fmtDate(d.date),d.status||"",money(d.total)])},
+      categories:{title:"تقرير الأصناف",headers:["الصنف","المستهدف","المجمع","النسبة"],rows:()=>CACHE.categories.map(c=>[c.name,money(c.target),money(categoryTotal(c.id)),(c.target?Math.round(categoryTotal(c.id)/c.target*100):0)+"%"])},
+      events:{title:"تقرير المناسبات",headers:["العنوان","النوع","التاريخ","المكان"],rows:()=>CACHE.events.map(e=>[e.title,e.type||"",fmtDate(e.date),e.location||""])}
+    };
+    function viewReports(){
+      document.getElementById("content").innerHTML = viewHeader("التقارير","طباعة وتصدير CSV مع دعم العربية في Excel.") +
+      `<div class="card-list">${Object.entries(REPORT_DEFS).map(([key,def])=>`<section class="panel"><h3>${esc(def.title)}</h3><p class="muted">${num(def.rows().length)} سجل</p><div class="toolbar"><button class="btn primary" onclick="printReport('${key}')">طباعة</button><button class="btn green" onclick="exportCSV('${key}')">CSV</button></div></section>`).join("")}</div>`;
+    }
+    function printReport(key){
+      const def = REPORT_DEFS[key], rows = def.rows();
+      const html = `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>${esc(def.title)}</title><style>body{font-family:Segoe UI,Tahoma,sans-serif;direction:rtl;padding:24px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:right}th{background:#f1f5f9}</style></head><body><h1>عائلة النجار</h1><h2>${esc(def.title)}</h2><p>التاريخ: ${new Date().toLocaleString("ar")} · عدد السجلات: ${num(rows.length)}</p>${table(def.headers,rows,true)}</body></html>`;
+      const w = window.open("","_blank");
+      w.document.write(html); w.document.close(); w.focus(); w.print();
+    }
+    function exportCSV(key){
+      const def = REPORT_DEFS[key], rows = [def.headers,...def.rows()];
+      const csv = "\ufeff" + rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n");
+      const blob = new Blob([csv],{type:"text/csv;charset=utf-8"});
+      downloadBlob(blob,`${key}-${today()}.csv`);
+      logActivity("صدّر","تقرير",def.title);
+    }
+
+    function viewActivity(){
+      const rows = [...CACHE.activity].sort((a,b)=>b.at-a.at);
+      document.getElementById("content").innerHTML = viewHeader("سجل النشاطات","كل عمليات الإضافة والتعديل والحذف والتصدير.") +
+      (rows.length ? table(["المستخدم","العملية","العنصر","التفاصيل","الوقت"],rows.map(a=>[esc(a.userName),esc(a.action),esc(a.entity),esc(a.details),relTime(a.at)])) : emptyState("☷","لا نشاط","لا توجد سجلات."));
+    }
+
+    function viewBackup(){
+      document.getElementById("content").innerHTML = viewHeader("النسخ الاحتياطي","تصدير واستعادة كل بيانات النظام. الاستعادة تستبدل البيانات الحالية.",`<button class="btn green" onclick="backupExport()">تصدير JSON</button><button class="btn red" onclick="document.getElementById('restoreFile').click()">استعادة</button>`) +
+      `<section class="panel"><h3>إرشادات</h3><p>احتفظ بملف النسخة في مكان آمن. الاستعادة إجراء مدمّر ويتطلب تأكيدًا.</p><input id="restoreFile" class="hidden" type="file" accept="application/json"></section>`;
+      document.getElementById("restoreFile").onchange = backupRestore;
+    }
+    async function backupExport(){
+      const data = {};
+      for(const store of DB.STORES) data[store] = await DB.all(store);
+      downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),`najjar-backup-${today()}.json`);
+      await logActivity("صدّر","نسخة احتياطية","تصدير كامل البيانات");
+      toast("تم تنزيل النسخة الاحتياطية","ok");
+    }
+    function backupRestore(e){
+      const file = e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        let data;
+        try { data = JSON.parse(reader.result); }
+        catch(err){ toast("ملف النسخة غير صالح","err"); return; }
+        confirmDialog("سيتم استبدال كل البيانات الحالية بمحتوى النسخة. هل تريد المتابعة؟",async()=>{
+          for(const store of DB.STORES) await DB.clear(store);
+          for(const store of DB.STORES){
+            for(const row of (data[store]||[])) await DB.put(store,row);
+          }
+          await refreshCache();
+          CURRENT.user = byId("users",CURRENT.user?.id) || CACHE.users.find(u=>u.role==="admin");
+          renderAppChrome(); navigate("dashboard"); toast("تمت الاستعادة","ok");
+        });
+      };
+      reader.readAsText(file);
+    }
+
+    function viewUsers(){
+      const rows = CACHE.users;
+      document.getElementById("content").innerHTML = viewHeader("إدارة المستخدمين","إضافة وتعديل وتعطيل مستخدمي النظام.",`<button class="btn primary" onclick="editUser()">إضافة مستخدم</button>`) +
+      table(["الاسم","المستخدم","الدور","الحالة","إجراءات"],rows.map(u=>[
+        esc(u.name),esc(u.username),u.role==="admin"?'<span class="pill red">مدير</span>':'<span class="pill blue">عضو</span>',u.active?'<span class="pill green">نشط</span>':'<span class="pill gray">معطل</span>',userActions(u)
+      ]));
+    }
+    function userActions(u){
+      const del = u.id === CURRENT.user.id ? "" : `<button class="btn red" onclick="delRec('users','${esc(u.id)}','${esc(u.name)}','مستخدم')">حذف</button>`;
+      return `<div class="row-actions"><button class="btn" onclick="editUser('${esc(u.id)}')">تعديل</button>${del}</div>`;
+    }
+    function editUser(id){
+      const existing = id ? byId("users",id) : null;
+      formModal(existing?"تعديل مستخدم":"إضافة مستخدم",[
+        {name:"name",label:"الاسم",required:true},
+        {name:"username",label:"اسم المستخدم",required:true},
+        {name:"password",label:"كلمة المرور",required:true},
+        {name:"role",label:"الدور",type:"select",options:[{value:"admin",label:"مدير"},{value:"member",label:"عضو لجنة"}]},
+        {name:"active",label:"الحالة",type:"select",options:[{value:"true",label:"نشط"},{value:"false",label:"معطل"}]}
+      ],existing?{...existing,active:String(existing.active)}:{role:"member",active:"true"},async data=>{
+        data.active = data.active === "true";
+        await saveRecord("users",existing,data,"مستخدم",data.name);
+      });
+    }
+
+    function actions(editFn,id,store,label,entity){
+      return `<div class="row-actions"><button class="btn" onclick="${editFn}('${esc(id)}')">تعديل</button><button class="btn red" onclick="delRec('${esc(store)}','${esc(id)}','${esc(label)}','${esc(entity)}')">حذف</button></div>`;
+    }
+    function table(headers,rows,plain=false){
+      const cell = c => plain ? esc(c) : c;
+      return `<div class="tbl-wrap"><table><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${cell(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }
+    async function saveRecord(store,existing,data,entity,label,autoAfter=true){
+      await DB.put(store,{...(existing||{}),...data});
+      await refreshCache();
+      await logActivity(existing?"عدّل":"أضاف",entity,label);
+      if(autoAfter) afterSave();
+    }
+    function afterSave(){
+      renderNav(); renderBell(); navigate(CURRENT.route); toast("تم الحفظ بنجاح","ok");
+    }
+    function delRec(store,id,label,entity){
+      if(store === "users" && id === CURRENT.user.id){ toast("لا يمكن حذف الحساب الحالي","err"); return; }
+      confirmDialog(`هل تريد حذف "${label}"؟`,async()=>{
+        await DB.del(store,id);
+        await refreshCache();
+        await logActivity("حذف",entity,label);
+        renderNav(); renderBell(); navigate(CURRENT.route); toast("تم الحذف","ok");
+      });
+    }
+    function downloadBlob(blob,name){
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+
+    async function doLogin(username,password){
+      const user = CACHE.users.find(u=>u.username===username && u.password===password && u.active);
+      if(!user) throw new Error("بيانات الدخول غير صحيحة أو الحساب معطل.");
+      await DB.put("meta",{id:"session",userId:user.id});
+      CURRENT.user = user;
+      startApp();
+    }
+    async function logout(){
+      await DB.del("meta","session");
+      CURRENT.user = null;
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("loginScreen").classList.remove("hidden");
+      document.getElementById("password").value = "";
+    }
+    function startApp(){
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      renderAppChrome();
+      navigate(CURRENT.route || "dashboard");
+    }
+    async function restoreSession(){
+      const session = await DB.get("meta","session");
+      if(session?.userId){
+        const user = byId("users",session.userId);
+        if(user && user.active){ CURRENT.user = user; startApp(); return; }
+      }
+      document.getElementById("loginScreen").classList.remove("hidden");
+    }
+    function globalSearch(q){
+      const needle = q.trim();
+      if(!needle){ toast("اكتب عبارة للبحث","info"); return; }
+      const checks = [
+        ["members",["name","phone"],"members"],
+        ["branches",["name","headName"],"branches"],
+        ["donors",["name","phone"],"donors"],
+        ["categories",["name","description"],"categories"],
+        ["events",["title","location","description"],"events"],
+        ["donations",["notes","method"],"donations"]
+      ];
+      for(const [store,fields,route] of checks){
+        if((CACHE[store]||[]).some(row=>fields.some(f=>String(row[f]||"").includes(needle)))){
+          navigate(route); toast("تم فتح القسم المطابق","ok"); return;
+        }
+      }
+      toast("لا نتائج","err");
+    }
+    async function boot(){
+      bindStaticEvents();
+      try{
+        await DB.open();
+        await seedIfEmpty();
+        await refreshCache();
+        await restoreSession();
+      }catch(err){
+        document.getElementById("loginScreen").innerHTML = `<div class="login-card"><h2>تعذر تشغيل التخزين المحلي</h2><p>يبدو أن المتصفح يمنع IndexedDB في هذا السياق. افتح الملف في نافذة عادية أو اسمح بالتخزين المحلي.</p><p class="error">${esc(err.message||err)}</p></div>`;
+      }
+    }
+    function bindStaticEvents(){
+      document.getElementById("loginForm").onsubmit = async e => {
+        e.preventDefault();
+        const err = document.getElementById("loginError");
+        err.textContent = "";
+        try{ await doLogin(document.getElementById("username").value.trim(),document.getElementById("password").value); }
+        catch(ex){ err.textContent = ex.message; }
+      };
+      document.getElementById("logoutBtn").onclick = logout;
+      document.getElementById("menuBtn").onclick = () => document.body.classList.toggle("sidebar-open");
+      document.getElementById("bellBtn").onclick = () => document.getElementById("notifPanel").classList.toggle("hidden");
+      document.getElementById("globalSearchForm").onsubmit = e => { e.preventDefault(); globalSearch(document.getElementById("globalSearchInput").value); };
+      document.getElementById("modalRoot").addEventListener("click",e=>{ if(e.target.dataset.close) closeModal(); });
+      document.addEventListener("keydown",e=>{ if(e.key==="Escape" && document.getElementById("modalRoot").classList.contains("open")) closeModal(); });
+      document.addEventListener("click",e=>{
+        const panel = document.getElementById("notifPanel");
+        if(panel && !panel.contains(e.target) && !document.getElementById("bellBtn").contains(e.target)) panel.classList.add("hidden");
+      });
+    }
+    window.addEventListener("DOMContentLoaded",boot);
+  </script>
+</body>
+</html>
